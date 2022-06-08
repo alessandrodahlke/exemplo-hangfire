@@ -33,19 +33,7 @@ namespace Hangfire
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hangfire", Version = "v1" });
             });
 
-            services.AddHangfire(configuration => configuration
-                .UseRecommendedSerializerSettings()
-                .UseSQLiteStorage());
-
-            // Define a quantidade de retentativas aplicadas a um job com falha.
-            // Por padrão serão 10
-            GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute
-            {
-                Attempts = 3,
-                DelaysInSeconds = new int[] { 300 }
-            });
-
-            services.AddHangfireServer();
+            services.HangfireServiceConfig();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,7 +56,7 @@ namespace Hangfire
                 endpoints.MapControllers();
             });
 
-            app.UseHangfireDashboard();
+            app.HangfireApplicationConfig();
 
             ExemploFireAndForgetJob();
             ExemploDelayedJobs();
