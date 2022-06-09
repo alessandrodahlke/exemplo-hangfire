@@ -1,4 +1,5 @@
-using Hangfire.Storage.SQLite;
+using Hangfire.MemoryStorage;
+//using Hangfire.Storage.SQLite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,8 @@ namespace Hangfire
         {
             services.AddHangfire(configuration => configuration
                             .UseRecommendedSerializerSettings()
-                            .UseSQLiteStorage());
+                            .UseMemoryStorage());
+                            //.UseSQLiteStorage());
 
             // Define a quantidade de retentativas aplicadas a um job com falha.
             // Por padrão serão 10, aqui estamos definindo 3 tentativas
@@ -26,7 +28,7 @@ namespace Hangfire
 
         public static void HangfireApplicationConfig(this IApplicationBuilder app)
         {
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire");
         }
     }
 }

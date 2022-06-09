@@ -62,7 +62,7 @@ namespace Hangfire
             ExemploDelayedJobs();
             ExemploRecurringJobs();
             ExemploExecutarJobFilho();
-            ExemploFalharJob();
+            //ExemploFalharJob();
         }
 
         /// <summary>
